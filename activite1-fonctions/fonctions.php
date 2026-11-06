@@ -57,4 +57,30 @@ function estPremier(int $n): bool {
 
     return true;
 }
+function calculerTTC(float $ht, float $tva = 20.0): float {
+    return $ht * (1 + $tva / 100);
+}
+
+function calculerRemise(float $prix, float $pourcentage): float {
+    $remise = $prix * $pourcentage / 100;
+    $prixFinal = $prix - $remise;
+
+    return round($prixFinal, 2);
+}
+
+function calculerFacture(
+    float $prixUnitaire,
+    int $quantite,
+    float $remise = 0,
+    float $tva = 20.0
+): float {
+
+    $totalHT = $prixUnitaire * $quantite;
+
+    $totalApresRemise = calculerRemise($totalHT, $remise);
+
+    $totalTTC = calculerTTC($totalApresRemise, $tva);
+
+    return round($totalTTC, 2);
+}
 ?>
